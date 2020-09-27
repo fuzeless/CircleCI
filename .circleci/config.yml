@@ -1,16 +1,16 @@
 jobs:
-  test:
-    executor: node/default
+  install-node-example:
+    docker:
+      - image: 'cimg/base:stable'
     steps:
       - checkout
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          override-ci-command: npm install
-      - run: npm run test
+      - node/install:
+          install-yarn: true
+      - run: node --version
 orbs:
   node: circleci/node@1.1
 version: 2.1
 workflows:
   test_my_app:
     jobs:
-      - test
+      - install-node-example
